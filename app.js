@@ -1,14 +1,22 @@
 const express = require('express');
 const pug = require('pug');
+const mongoose = require('mongoose');
+const connectDB = require('./DB/connection');
 const app = express();
 
-//pug
+connectDB();
+app.use(express.json({extended:false}));
+
 app.set('view engine', 'pug');
+
 
 //Routes
 app.use('/', require('./routes/index'));
-app.use('/', require('./routes/users'));
+app.use('/users', require('./routes/users'));
+app.use('/api/userModel', require('./api/User'));
 
-const PORT = process.env.PORT || 5000;
+const Port =process.env.Port ||  3000;
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));  
+app.listen(Port,()=>console.log("server started"));
+
+
